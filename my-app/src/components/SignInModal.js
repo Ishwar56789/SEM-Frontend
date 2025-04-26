@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './styles/SignInModal.module.css';
+// import { useNavigate } from 'react-router-dom';
 
 const SignInModal = ({ onClose, onLoginSuccess }) => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const SignInModal = ({ onClose, onLoginSuccess }) => {
   const [message, setMessage] = useState({ text: '', type: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  // const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(prev => !prev);
@@ -57,27 +59,9 @@ const SignInModal = ({ onClose, onLoginSuccess }) => {
           console.log('JWT Token:', token);
   
           setMessage({ text: backendMessage || 'Login successful!', type: 'success' });
-  
-          // ✅ Step 2: Fetch expenses using the token
-          // const expensesRes = await fetch('http://localhost:8081/api/expense/get-expenses', {
-          //   method: 'GET',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //     Authorization: `Bearer ${token}`,
-          //   },
-          // });
-  
-          // const expensesData = await expensesRes.json();
-  
-          // if (expensesRes.ok) {
-          //   console.log('Expenses:', expensesData);
-          // } else {
-          //   console.error('Failed to fetch expenses:', expensesData.message);
-          // }
-  
-          // Optional: Call onLoginSuccess if needed
+
           onLoginSuccess?.();
-  
+          // navigate('/expenses');
         } else {
           setMessage({ text: 'Token not found in response', type: 'error' });
         }
